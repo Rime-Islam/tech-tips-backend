@@ -8,7 +8,7 @@ import { AuthService } from "./auth.service";
 const registerUser = catchAsync(async (req, res) => {
     const result = await AuthService.register(req.body);
     sendResponse(res, {
-        statusCode: 201,
+        statusCode: httpStatus.OK,
         success: true,
         message: "User registered successfully!",
         data: result,
@@ -33,23 +33,20 @@ const loginUser = catchAsync(async (req, res) => {
     });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const userUpdate = catchAsync(async (req, res) => {
+    const { userId } = req.params;
+    const result = await AuthService.updateUser(req.body, userId);
+    
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "User updated successfully!",
+        data: result,
+    })
+});
 
 export const AuthController = {
     registerUser,
     loginUser,
-    
+    userUpdate,
 };

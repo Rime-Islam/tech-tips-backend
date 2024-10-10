@@ -53,11 +53,21 @@ const loginUser = async (payload: TUserSignin) => {
     };
 };
 
-
+const updateUser = async(
+    payload: Record<string, unknown>,
+    id: string
+) => {
+    const result = await User.findByIdAndUpdate(id, payload, {
+        new: true,
+        runValidators: true,
+    });
+    return result;
+}
 
 
 
 export const AuthService = {
     register,
     loginUser,
+    updateUser,
 };
