@@ -33,20 +33,9 @@ const loginUser = catchAsync(async (req, res) => {
     });
 });
 
-const userUpdate = catchAsync(async (req, res) => {
-    const { userId } = req.params;
-    const result = await AuthService.updateUser(req.body, userId);
-    
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
-        success: true,
-        message: "User updated successfully!",
-        data: result,
-    })
-});
+
 
 export const AuthController = {
     registerUser,
     loginUser,
-    userUpdate,
 };
