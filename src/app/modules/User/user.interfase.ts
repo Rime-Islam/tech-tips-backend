@@ -24,6 +24,7 @@ export interface IUser {
  }
 
  export interface UserModel extends Model<TUserDocument> {
+    updatePassword(id: string, password: string): unknown;
     isUserExistByCustomerId(email: string): Promise<TUserDocument>;
     isPasswordMatched(
         plainTextPassword: string,

@@ -17,7 +17,7 @@ const UserSchema = new Schema<IUser>(
       followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User"  }],
       following: [{  type: mongoose.Schema.Types.ObjectId, ref: "User"}],
       premium: {  type: Boolean, default: false },
-      phone: { type: String, required: true },
+      phone: { type: String },
       address: {  type: String  },
     },
     {
@@ -39,6 +39,16 @@ const UserSchema = new Schema<IUser>(
     next();
   });
 
+  UserSchema.statics.updatePassword = async function (id: string, password: string) {
+    const hashedPassword = await bcryptjs.hash(password, Number(config.bcrypt_salt_round));
+  
+    return await this.findByIdAndUpdate(
+      id,
+      { password: hashedPassword },
+      { new: true, runValidators: true }
+    ).select("+password");
+  };
+  
   UserSchema.statics.isUserExistByCustomerId = async function (email: string) {
     return await User.findOne({ email }).select("+password");
   };
