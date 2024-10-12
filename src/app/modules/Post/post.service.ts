@@ -62,8 +62,8 @@ const updateMyPostDB = async ( id: string, email: string, payload: TPost) => {
     return result;
 };
 
-const getPostByCategory = async (id: unknown) => {
-    const result = await Post.find({ category: id })
+const getPostByCategory = async (category: string) => {
+    const result = await Post.find({ category })
     .populate("user")
     .populate("comments.user")
     return result;
