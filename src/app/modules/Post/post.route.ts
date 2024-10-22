@@ -16,6 +16,9 @@ PostRouter.get("/:postId", PostController.getSinglePost);
 PostRouter.get("/category", PostController.categoryPost);
 PostRouter.patch("/update-post/:postId", auth(user_role.user), PostController.updatePost);
 PostRouter.delete("/delete/:postId", auth(user_role.user), PostController.deletePost);
+PostRouter.post("/comments/:postId", auth(user_role.user), PostController.commentPost);
+PostRouter.patch("/update-comments/:postId", auth(user_role.user), PostController.updateCommentPost);
+PostRouter.patch("/upvote/:postId", auth(user_role.user), PostController.updatePost);
 
 
 export default PostRouter;

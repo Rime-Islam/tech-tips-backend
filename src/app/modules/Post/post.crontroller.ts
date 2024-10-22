@@ -86,6 +86,42 @@ const categoryPost = catchAsync(async (req, res) => {
         })
 });
 
+const commentPost = catchAsync(async (req, res) => {
+    const { postId } = req.params;
+    const { email } = req.user;
+        const result =  await PostService.commentDB(postId, email, req.body);
+        sendResponse(res, {
+            statusCode: httpStatus.OK,
+            success: true,
+            message: "Thanks for your comment!",
+            data: result,
+        })
+});
+
+const updateCommentPost = catchAsync(async (req, res) => {
+    const { postId } = req.params;
+    const { email } = req.user;
+        const result =  await PostService.updateCommentDB(postId, email, req.body);
+        sendResponse(res, {
+            statusCode: httpStatus.OK,
+            success: true,
+            message: "Comment updated successfully!",
+            data: result,
+        })
+});
+
+const upvotePost = catchAsync(async (req, res) => {
+    const { postId } = req.params;
+    const { email } = req.user;
+        const result =  await PostService.upvotePostDB(postId, email);
+        sendResponse(res, {
+            statusCode: httpStatus.OK,
+            success: true,
+            message: "Upvote successfully!",
+            data: result,
+        })
+});
+
 
 export const PostController = {
     newPost,
@@ -94,6 +130,10 @@ export const PostController = {
     getSinglePost,
     updatePost,
     deletePost,
-    categoryPost
+    categoryPost,
+    commentPost,
+    updateCommentPost,
+    upvotePost,
+
 
 };
