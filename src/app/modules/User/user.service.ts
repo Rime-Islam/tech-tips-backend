@@ -8,6 +8,7 @@ const getAllUser = async () => {
 
 const getSingleUser = async (id: string) => {
     const result = await User.findById(id);
+    console.log("userr",result)
     return result;
 };
 
@@ -19,6 +20,7 @@ const updateUser = async(
         new: true,
         runValidators: true,
     });
+    
     return result;
 };
 

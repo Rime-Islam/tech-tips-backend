@@ -11,7 +11,7 @@ const PostRouter = Router();
 
 PostRouter.post("/create", PostController.newPost);
 PostRouter.get("/", PostController.getAllPost);
-PostRouter.get("/my-post", PostController.getMyPost);
+PostRouter.get("/my-post" , auth(user_role.user), PostController.getMyPost);
 PostRouter.get("/:postId", PostController.getSinglePost);
 PostRouter.get("/category", PostController.categoryPost);
 PostRouter.patch("/update-post/:postId", auth(user_role.user), PostController.updatePost);

@@ -14,8 +14,7 @@ export type TPost = {
     _id?: string;  
     title: string;  
     content: string;  
-    authorId: string | undefined; 
-    authorName: string | undefined;  
+    user: Types.ObjectId; 
     images?: string;  
     category: string;  
     tags?: string[];  

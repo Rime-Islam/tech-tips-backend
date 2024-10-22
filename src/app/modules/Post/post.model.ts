@@ -14,8 +14,7 @@ const CommentSchema = new Schema({
 const PostSchema = new Schema<TPost>({
     title: { type: String, required: true },
     content: { type: String, required: true },
-    authorId: { type: String},
-    authorName: { type: String},
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true},
     images: { type: String},
     category: { type: String, required: true },
     tags: { type: [String] },
