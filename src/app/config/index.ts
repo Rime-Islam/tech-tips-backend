@@ -12,4 +12,9 @@ export default {
     URL: process.env.FRONTEND_URL,
     user_name: process.env.EMAIL_USER,
     password: process.env.EMAIL_PASS,
+    store_id: process.env.STORE_ID,
+    signature_key: process.env.SIGNATURE_KEY,
+    payment_url: process.env.PAYMENT_URL,
+    payment_varifyurl: process.env.PAYMENT_TRANSACTION,
+    BA_URL: process.env.BACKEND_URL,
 };
