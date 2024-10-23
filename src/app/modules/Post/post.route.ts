@@ -18,7 +18,8 @@ PostRouter.patch("/update-post/:postId", auth(user_role.user), PostController.up
 PostRouter.delete("/delete/:postId", auth(user_role.user), PostController.deletePost);
 PostRouter.post("/comments/:postId", auth(user_role.user), PostController.commentPost);
 PostRouter.patch("/update-comments/:postId", auth(user_role.user), PostController.updateCommentPost);
-PostRouter.patch("/upvote/:postId", auth(user_role.user), PostController.updatePost);
+PostRouter.patch("/vote/:postId", auth(user_role.user), PostController.upvotePost);
+PostRouter.post("/payment/:userId", PostController.payment);
 
 
 export default PostRouter;

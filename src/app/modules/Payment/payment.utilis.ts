@@ -7,7 +7,6 @@ export const initialPayment = async (paymentData: any) => {
     totalCost,
     customerName,
     custormarEmail,
-    custormarPhone,
   } = paymentData;
   const response = await axios.post(config.payment_url!, {
     store_id: config.store_id,
@@ -27,7 +26,7 @@ export const initialPayment = async (paymentData: any) => {
     cus_state: "Dhaka",
     cus_postcode: "6400",
     cus_country: "Bangladesh",
-    cus_phone: paymentData?.customerPhone,
+    cus_phone: '0127846345',
     type: "json",
   });
 

@@ -8,7 +8,7 @@ const getAllUser = async () => {
 
 const getSingleUser = async (id: string) => {
     const result = await User.findById(id);
-    console.log("userr",result)
+
     return result;
 };
 

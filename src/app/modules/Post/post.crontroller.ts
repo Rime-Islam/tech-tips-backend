@@ -122,6 +122,18 @@ const upvotePost = catchAsync(async (req, res) => {
         })
 });
 
+const payment = catchAsync(async (req, res) => {
+    const { userId } = req.params;
+    
+        const result =  await PostService.paymentPost(userId);
+        sendResponse(res, {
+            statusCode: httpStatus.OK,
+            success: true,
+            message: "Subscribe successfully!",
+            data: result,
+        })
+});
+
 
 export const PostController = {
     newPost,
@@ -134,6 +146,6 @@ export const PostController = {
     commentPost,
     updateCommentPost,
     upvotePost,
-
+    payment
 
 };

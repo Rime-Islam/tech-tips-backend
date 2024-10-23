@@ -12,10 +12,10 @@ const paymentUpdate = async (transactionId: string, status: string) => {
   if (verifyResponse && verifyResponse?.status === 200 ) {
  
    const result = await User.findOneAndUpdate(
-      { transactionId },
-      { isVerified: true },
+      { premium: true },
       { new: true }
     );
+   
 
   }
   
@@ -26,7 +26,7 @@ const paymentUpdate = async (transactionId: string, status: string) => {
       </h1>
       <p style="font-size: 18px; color: #333;">
         ${status === 'success' 
-          ? 'Thank you for your purchase! You will be redirected to the homepage shortly.' 
+          ? 'Thank you for your subscriptions! You will be redirected to the homepage shortly.' 
           : 'Unfortunately, your payment was not successful. Please try again or contact support.'}
       </p>
       <button style="padding: 10px 20px; background-color: ${status === 'success' ? '#4CAF50' : '#F44336'}; border: none; color: white; cursor: pointer; border-radius: 5px;">

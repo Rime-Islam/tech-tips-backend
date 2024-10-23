@@ -4,6 +4,7 @@ import { Post } from "./post.model";
 import { User } from "../User/user.model";
 import AppError from "../../Error/AppError";
 import httpStatus from "http-status";
+import { initialPayment } from "../Payment/payment.utilis";
 
 
 
@@ -154,22 +155,25 @@ const updateCommentDB = async ( id: string, email: string, payload: Record<strin
 
 const upvotePostDB = async ( postId: string, email: string) => {
     const post: any = await Post.findById(postId);
+  
     if (!post) {
         throw new AppError(httpStatus.NOT_EXTENDED, "Post not found");
     }
 
     const postUser = post.user;   
     const findUser = await User.findOne({ email });
+  
     if (!findUser) {
         throw new AppError(httpStatus.NOT_EXTENDED, "User not found");
     }
 
     const user = findUser._id;
     if (post.user.equals(user)) {
-        throw new AppError(httpStatus.NOT_EXTENDED, "You can't upvote your own post");
+        throw new AppError(httpStatus.OK, "You can't upvote your own post");
     };
 
     const upvoted = post.upvotedUsers!.includes(user);
+   
     if (upvoted) {
         post.upvotedUsers = post.upvotedUsers!.filter(
             (userId: any) => !userId.equals(user)
@@ -186,8 +190,23 @@ const upvotePostDB = async ( postId: string, email: string) => {
 
     const upvotedPost = await post.save();
     await upvotedPost.populate("user");
-
+  
     return upvotedPost;
+};
+
+const paymentPost = async (id: string) => {
+    const user = await User.findById(id);
+    const transactionId = `TXN-${Date.now()}`;
+    const totalCost = 20;
+
+    const paymentData = {
+        transactionId,
+        totalCost,
+        customerName: user?.name,
+        customerEmail: user?.email,
+    }
+    const initialState = await initialPayment(paymentData);
+    return initialState;
 };
 
 
@@ -203,5 +222,5 @@ export const PostService = {
     commentDB,
     updateCommentDB,
     upvotePostDB,
-
+    paymentPost,
 };
