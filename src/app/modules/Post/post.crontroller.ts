@@ -87,13 +87,29 @@ const categoryPost = catchAsync(async (req, res) => {
 });
 
 const commentPost = catchAsync(async (req, res) => {
+    const { commentText } = req.body;
+
     const { postId } = req.params;
     const { email } = req.user;
-        const result =  await PostService.commentDB(postId, email, req.body);
+   
+        const result =  await PostService.commentDB(postId, email, commentText);
         sendResponse(res, {
             statusCode: httpStatus.OK,
             success: true,
             message: "Thanks for your comment!",
+            data: result,
+        })
+});
+
+const deleteCommentPost = catchAsync(async (req, res) => {
+    const { postId } = req.params;
+    const comentId  = req.body.comentId;
+    const { email } = req.user;
+        const result =  await PostService.deleteCommentDB(postId, email, comentId);
+        sendResponse(res, {
+            statusCode: httpStatus.OK,
+            success: true,
+            message: "Comment deleted successfully!",
             data: result,
         })
 });
@@ -146,6 +162,7 @@ export const PostController = {
     commentPost,
     updateCommentPost,
     upvotePost,
-    payment
+    payment,
+    deleteCommentPost
 
 };

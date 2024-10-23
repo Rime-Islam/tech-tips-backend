@@ -87,8 +87,7 @@ const deleteMyPostDB = async ( id: string, email: string, payload: TPost) => {
     return result;
 };
 
-const commentDB = async ( id: string, email: string, payload: Record<string, undefined>) => {
-   const { commentText } = payload;
+const commentDB = async ( id: string, email: string, commentText: string) => {
     const findPost = await Post.findById(id);
     if (!findPost) {
         throw new AppError(httpStatus.NOT_EXTENDED, "Post not found");
@@ -112,6 +111,38 @@ const commentDB = async ( id: string, email: string, payload: Record<string, und
     { new: true }
     ).populate("user")
     .populate("comments.user");
+
+    return result;
+};
+
+const deleteCommentDB = async ( postId: string, email: string,  comentId: string) => {
+    const findPost = await Post.findById(postId);
+    if (!findPost) {
+        throw new AppError(httpStatus.NOT_EXTENDED, "Post not found");
+    };
+    const filterCommentWithPostID = findPost?.comments;
+
+    const commentExists = filterCommentWithPostID!.find(
+        (comment) => comment._id.toString() === comentId
+    );
+    if (!commentExists) {
+        throw new AppError(httpStatus.NOT_EXTENDED, "Comment not found");
+    }
+
+    const findUser = await User.findOne({ email });
+    if (!findUser) {
+        throw new AppError(httpStatus.NOT_EXTENDED, "User not found");
+    }
+
+    if (!commentExists.user.equals(findUser._id)) {
+        throw new AppError(httpStatus.NOT_EXTENDED, "Comment is not yours");
+    }
+
+    const result = await Post.findByIdAndUpdate(
+        postId,
+        { $pull: { comments: { _id: comentId } } },
+        {new: true}
+    );
 
     return result;
 };
@@ -210,7 +241,6 @@ const paymentPost = async (id: string) => {
 };
 
 
-
 export const PostService = {
     CreatePost,
     getAllPostDB,
@@ -223,4 +253,5 @@ export const PostService = {
     updateCommentDB,
     upvotePostDB,
     paymentPost,
+    deleteCommentDB,
 };
