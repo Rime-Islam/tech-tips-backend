@@ -16,7 +16,8 @@ export interface IUser {
     following?: mongoose.Types.ObjectId[];                  
     premium?: boolean;
     phone: string;
-    address?: string;           
+    address?: string; 
+    transactionId?: string;          
   }
   
  export interface TUserDocument extends IUser, Document {

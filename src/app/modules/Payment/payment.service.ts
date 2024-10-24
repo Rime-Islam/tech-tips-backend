@@ -11,12 +11,11 @@ const paymentUpdate = async (transactionId: string, status: string) => {
 
   if (verifyResponse && verifyResponse?.status === 200 ) {
  
-   const result = await User.findOneAndUpdate(
-      { premium: true },
-      { new: true }
+    await User.findOneAndUpdate(
+    { transactionId },
+      { premium: true }
     );
    
-
   }
   
   return `

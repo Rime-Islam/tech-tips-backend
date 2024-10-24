@@ -17,8 +17,9 @@ const UserSchema = new Schema<IUser>(
       followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User"  }],
       following: [{  type: mongoose.Schema.Types.ObjectId, ref: "User"}],
       premium: {  type: Boolean, default: false },
-      phone: { type: String },
+      phone: { type: String,},
       address: {  type: String  },
+      transactionId: {  type: String, default: "js"  },
     },
     {
       timestamps: true, 

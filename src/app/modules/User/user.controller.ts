@@ -47,11 +47,25 @@ const userUpdate = catchAsync(async (req, res) => {
     })
 });
 
+const follow = catchAsync(async (req, res) => {
+    const { userId } = req.params;
+    const { email } = req.user;
+
+        const result =  await UserService.followUserDB(userId, email);
+
+        sendResponse(res, {
+            statusCode: httpStatus.OK,
+            success: true,
+            message: "Follow successfully!",
+            data: result,
+        })
+});
+
 
 
 export const UserCrontroller = {
     userUpdate,
     getAllUser,
     getSingleuser,
-
+    follow
 };

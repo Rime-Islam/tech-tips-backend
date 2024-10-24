@@ -213,13 +213,10 @@ const upvotePostDB = async ( postId: string, email: string) => {
     } else {
         post.upvotedUsers!.push(user);
         post.upvotesCount = (post.upvotesCount || 0) + 1;
-
-        if (post.upvotesCount >= 1) {
-            await User.updateOne({ _id: postUser }, { premium: true });
-        }
     }
 
     const upvotedPost = await post.save();
+    
     await upvotedPost.populate("user");
   
     return upvotedPost;
@@ -227,8 +224,16 @@ const upvotePostDB = async ( postId: string, email: string) => {
 
 const paymentPost = async (id: string) => {
     const user = await User.findById(id);
+  
     const transactionId = `TXN-${Date.now()}`;
     const totalCost = 20;
+
+   const update = await User.findByIdAndUpdate(
+        id,
+        {
+            transactionId, 
+        }
+    )
 
     const paymentData = {
         transactionId,

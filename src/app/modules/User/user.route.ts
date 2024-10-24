@@ -10,9 +10,9 @@ import { user_role } from './user.constant';
 const UserRouter = Router();
 
 
-UserRouter.get("/", auth(user_role.admin), UserCrontroller.getAllUser);
+UserRouter.get("/", UserCrontroller.getAllUser);
 UserRouter.get("/:userId", UserCrontroller.getSingleuser);
 UserRouter.patch("/:userId", auth(user_role.user), UserCrontroller.userUpdate);
-
+UserRouter.patch("/follow/:userId", auth(user_role.user), UserCrontroller.follow);
 
 export default UserRouter;
