@@ -61,11 +61,24 @@ const follow = catchAsync(async (req, res) => {
         })
 });
 
+const getFollowerDB = catchAsync(async (req, res) => {
+    const { userId } = req.params;
+    const result = await UserService.getFollower(userId);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Follower data retrived successfully!',
+        data: result,
+    });
+});
 
 
 export const UserCrontroller = {
     userUpdate,
     getAllUser,
     getSingleuser,
-    follow
+    follow,
+    getFollowerDB,
+
 };

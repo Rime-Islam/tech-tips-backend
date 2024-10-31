@@ -80,9 +80,19 @@ const followUserDB = async ( userId: string, email: string) => {
     }
 };
 
+const getFollower = async (id: string) => {
+    const result = await User.findById(id)
+    .populate('followers', 'id name email profilePicture premium')
+    .populate('following', 'id name email profilePicture premium');
+
+    return result;
+};
+
 export const UserService = {
     updateUser,
     getAllUser,
     getSingleUser,
-    followUserDB
+    followUserDB,
+    getFollower,
+
 };
