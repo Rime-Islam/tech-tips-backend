@@ -82,8 +82,8 @@ const followUserDB = async ( userId: string, email: string) => {
 
 const getFollower = async (id: string) => {
     const result = await User.findById(id)
-    .populate('followers', 'id name email profilePicture premium')
-    .populate('following', 'id name email profilePicture premium');
+    .populate('followers', 'id name profilePicture premium')
+    .populate('following', 'id name profilePicture premium');
 
     return result;
 };

@@ -11,7 +11,8 @@ export interface IUser {
     profilePicture?: string;    
     bio?: string;                
     role?: TUser_role;     
-    isVerified?: boolean;        
+    status?: string;        
+    isDelete: boolean;       
     followers?: mongoose.Types.ObjectId[];        
     following?: mongoose.Types.ObjectId[];                  
     premium?: boolean;

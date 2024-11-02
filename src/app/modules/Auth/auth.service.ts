@@ -25,6 +25,16 @@ const loginUser = async (payload: TUserSignin) => {
     if (!user) {
       throw new AppError(httpStatus.NOT_EXTENDED, "This User not found");
     }
+    const status = user?.status;
+    if (status === "block") {
+      throw new AppError(httpStatus.NOT_EXTENDED, "This User is Blocked");
+    }
+
+    if (user?.isDelete) {
+      throw new AppError(httpStatus.NOT_EXTENDED, "This User account is deleted");
+    }
+
+
     if (!(await User.isPasswordMatched(payload.password, user.password))) {
       throw new AppError(httpStatus.FORBIDDEN, "wrong password!");
     }
