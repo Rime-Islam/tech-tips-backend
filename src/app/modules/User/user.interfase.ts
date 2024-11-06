@@ -18,10 +18,12 @@ export interface IUser {
     premium?: boolean;
     phone: string;
     address?: string; 
-    transactionId?: string;          
+    transactionId?: string; 
+    updatedAt: Date;         
   }
   
  export interface TUserDocument extends IUser, Document {
+    save(): unknown;
     role: any;
  }
 

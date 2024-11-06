@@ -11,7 +11,10 @@ import NotFound from './app/middleware/NotFound';
 const app: Application = express()
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({
+  origin: "https://tech-tips-khaki.vercel.app",
+  credentials: true
+}));
 app.use(cookieParser());
 app.use("/api", router);
 

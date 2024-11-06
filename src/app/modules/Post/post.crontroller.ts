@@ -65,7 +65,7 @@ const deletePost = catchAsync(async (req, res) => {
     const { postId } = req.params;
     const { email } = req.user;
     if (postId) {
-        const result =  await PostService.updateMyPostDB(postId, email, req.body);
+        const result =  await PostService.deleteMyPostDB(postId, email);
         sendResponse(res, {
             statusCode: httpStatus.OK,
             success: true,

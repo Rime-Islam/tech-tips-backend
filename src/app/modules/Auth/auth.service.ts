@@ -34,11 +34,10 @@ const loginUser = async (payload: TUserSignin) => {
       throw new AppError(httpStatus.NOT_EXTENDED, "This User account is deleted");
     }
 
-
     if (!(await User.isPasswordMatched(payload.password, user.password))) {
       throw new AppError(httpStatus.FORBIDDEN, "wrong password!");
     }
-  
+
     const jwtPayload = {
       email: user.email,
       role: user.role,
@@ -55,6 +54,12 @@ const loginUser = async (payload: TUserSignin) => {
         jwtPayload,
         config.jwt_refresh_token as string,
         "1y"
+    );
+
+    await User.findOneAndUpdate(
+        { email: user?.email },
+    { $set: { updatedAt: new Date() }, },
+    { new: true }
     );
 
     return {
@@ -106,6 +111,7 @@ const userPasswordReset = async (payload: { id: string; token: string; password:
     const token = payload?.token;
     const id = payload?.id;
     const password = payload?.password ;
+   
     const secretKey = config.jwt_access_token as string;
 
     jwt.verify(token, secretKey, async(error: any, decoded: any) => {

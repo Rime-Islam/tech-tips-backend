@@ -71,7 +71,7 @@ const getPostByCategory = async (category: string) => {
     return result;
 };
 
-const deleteMyPostDB = async ( id: string, email: string, payload: TPost) => {
+const deleteMyPostDB = async ( id: string, email: string) => {
     const findPost = await Post.findById(id);
     const findUser = await User.findOne({ email });
 

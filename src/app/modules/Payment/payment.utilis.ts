@@ -14,7 +14,7 @@ export const initialPayment = async (paymentData: any) => {
     tran_id: transactionId,
     success_url: `${config.BA_URL}/api/payment/confirmation?transactionId=${paymentData?.transactionId}&status=success`,
     fail_url: `${config.BA_URL}/api/payment/confirmation?status=failed`,
-    cancel_url: "https://empty-oven.surge.sh/",
+    cancel_url: "https://tech-tips-khaki.vercel.app/",
     amount: totalCost,
     currency: "BDT",
     desc: "Merchant Registration Payment",

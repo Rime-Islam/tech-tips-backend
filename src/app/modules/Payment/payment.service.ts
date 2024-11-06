@@ -29,7 +29,7 @@ const paymentUpdate = async (transactionId: string, status: string) => {
           : 'Unfortunately, your payment was not successful. Please try again or contact support.'}
       </p>
       <button style="padding: 10px 20px; background-color: ${status === 'success' ? '#4CAF50' : '#F44336'}; border: none; color: white; cursor: pointer; border-radius: 5px;">
-        <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-size: 16px;">
+        <a href="https://tech-tips-khaki.vercel.app/" style="color: white; text-decoration: none; font-size: 16px;">
           Return to Home
         </a>
       </button>
