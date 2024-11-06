@@ -33,7 +33,7 @@ Create a .env file in the root directory and set the required environment variab
 
 ``` bash
 PORT=use-yours
-DB_URL=use-yoursw=majority&appName=Cluster0
+DB_URL=use-yours
 BCRYPT_SALT_ROUND=10
 ACCESS_TOKEN_SECRET=use-yours
 ACCESS_REFRESH_SECRET=use-yours
@@ -65,47 +65,44 @@ Your API will be available at http://localhost:"your-port".
 Example Usage:
 ## Register a user:
 
+1. Auth Routes (/auth) 
+- POST /auth/signup: Register new user.
 ```bash
-1. POST /auth/signup
 {
   "email": "user@example.com",
   "password": "password123"
 }
+```
 
 2. User Routes (/user)
-GET /: Get all users (Admin only)
-
-GET /: Get a single user by userId
-PATCH /: Update a user by userId
-PATCH /user/follow/: userId
-PATCH /follow/: Follow a user (Authenticated users only)
-GET /follower/: Get a user's followers
-
-```
+- GET /: Get all users (Admin only)
+- GET /: Get a single user by userId
+- PATCH /: Update a user by userId
+- PATCH /user/follow/: userId
+- PATCH /follow/: Follow a user (Authenticated users only)
+- GET /follower/: Get a user's followers
 
 Example Usage:
 ## Follow a user:
-```bash
 3. Post Routes (/post)
-POST /create: Create a new post
-GET /: Get all posts
-GET /my-post: Get posts of the authenticated user (User/ Admin only)
-GET /: Get a single post by postId
-GET /category: Get posts by category
-PATCH /update-post/: Update a post (User only)
-DELETE /delete/: Delete a post (User only)
-POST /comments/: Add a comment to a post (User/ Admin only)
-PATCH /update-comments/: Update a comment (User/ Admin only)
-DELETE /comment-delete/: Delete a comment (User/ Admin only)
-PATCH /vote/: Upvote a post (User/ Admin only)
-POST /payment/: Handle user payment
-```
+- POST /create: Create a new post
+- GET /: Get all posts
+- GET /my-post: Get posts of the authenticated user (User/ Admin only)
+- GET /: Get a single post by postId
+- GET /category: Get posts by category
+- PATCH /update-post/: Update a post (User only)
+- DELETE /delete/: Delete a post (User only)
+- POST /comments/: Add a comment to a post (User/ Admin only)
+- PATCH /update-comments/: Update a comment (User/ Admin only)
+- DELETE /comment-delete/: Delete a comment (User/ Admin only)
+- PATCH /vote/: Upvote a post (User/ Admin only)
+- POST /payment/: Handle user payment
 
 Example Usage:
 ## Create a post:
 
+- POST /post/create
 ``` bash
-POST /post/create
 {
   "title": "Post Title",
   "content": "Post content goes here",
@@ -115,26 +112,25 @@ POST /post/create
 
 ## Add a comment:
 
+- POST /post/comments/:postId: Make a comment into a post.
 ``` bash
-POST /post/comments/:postId
 {
   "comment": "This is a comment"
 }
+``` 
 
 4. Payment Routes (/payment)
-POST /payment/: Handle payments for a user
-POST /confirmation: Confirm payment after user completes the transaction
-``` 
+- POST /payment/: Handle payments for a user
+- POST /confirmation: Confirm payment after user completes the transaction
 
 Example Usage:
 ## Make a payment:
 
+- POST /payment/:userId: Subscribe by paying some ammount.
 ```bash
-POST /payment/:userId
 {
   "amount": 20
 }
-Payment confirmation:
 ```
 
 ## Middleware
