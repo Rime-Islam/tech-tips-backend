@@ -2,13 +2,6 @@ import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { UserService } from "./user.service";
-import { User } from "./user.model";
-
-
-
-
-
-
 
 
 
@@ -37,8 +30,9 @@ const getSingleuser = catchAsync(async (req, res) => {
 
 const userUpdate = catchAsync(async (req, res) => {
     const { userId } = req.params;
-    const result = await UserService.updateUser(req.body, userId);
     
+    const result = await UserService.updateUser(req.body, userId);
+   
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,

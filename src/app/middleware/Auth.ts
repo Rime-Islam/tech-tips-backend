@@ -10,7 +10,7 @@ import { NextFunction, Request, Response } from "express"
 const auth = (...requiredRoles: TUser_role[]) => {
     return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
         const authHeader = req.headers.authorization;
-
+console.log(authHeader)
         const token = authHeader?.split(" ")[1];
    
         if(!token) {
@@ -26,6 +26,7 @@ const auth = (...requiredRoles: TUser_role[]) => {
         ) as JwtPayload;
 
         const role = decoded.role;
+        console.log(role)
         if(requiredRoles && !requiredRoles.includes(role)) {
             throw new AppError(
                 httpStatus.UNAUTHORIZED,

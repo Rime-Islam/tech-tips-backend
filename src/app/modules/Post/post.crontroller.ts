@@ -26,6 +26,7 @@ const getAllPost = catchAsync(async (req, res) => {
 });
 
 const getMyPost = catchAsync(async (req, res) => {
+    
     const result = await PostService.getMyPostDB(req.user.email);
 
     sendResponse(res, {

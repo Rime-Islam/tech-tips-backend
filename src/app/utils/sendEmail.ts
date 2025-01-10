@@ -4,7 +4,9 @@ import config from "../config";
 
 // transporter for email
 export const transporter = nodemailer.createTransport({
-    service: 'gmail',
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
     auth: {
         user: config.user_name,
         pass: config.password

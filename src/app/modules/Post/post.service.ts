@@ -33,13 +33,14 @@ const getSinglePostDB = async (id: string) => {
 
 const getMyPostDB = async (email: string) => {
     const filterUser = await User.findOne({ email });
-   
+
     const findUser = filterUser?._id;
     const result = await Post.find({
         user: findUser,
     }).populate("user")
     .populate("comments.user")
     .sort({ createdAt: -1, updatedAt: -1 });
+ 
     return result;
 };
 
@@ -199,9 +200,6 @@ const upvotePostDB = async ( postId: string, email: string) => {
     }
 
     const user = findUser._id;
-    if (post.user.equals(user)) {
-        throw new AppError(httpStatus.OK, "You can't upvote your own post");
-    };
 
     const upvoted = post.upvotedUsers!.includes(user);
    
