@@ -124,11 +124,24 @@ const userPasswordReset = async (payload: { id: string; token: string; password:
     })
 
 };
+const Reset = async (payload: { id: string; password: string; }) => { 
+    const user = await User.findOne({ _id: payload.id });
+
+    if(!user) {
+        throw new AppError(httpStatus.CONFLICT, "User not exists!");
+    }
+
+    const id = payload?.id;
+    const password = payload?.password ;
+    const result = await User.updatePassword(id, password);
+
+return result;
+};
 
 export const AuthService = {
     register,
     loginUser,
     forgetPassword,
     userPasswordReset,
-
+Reset
 };
